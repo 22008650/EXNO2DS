@@ -23,7 +23,74 @@ STEP 7: Use cross tabulation method to quantitatively analyze the relationship b
 STEP 8: Use heatmap method of representation to show relationships between two variables, one plotted on each axis.
 
 ## CODING AND OUTPUT
-        <<INCLUDE YOUR CODING AND OUTPUT SCREENSHOTS>>
+        import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+dt=pd.read_csv("/content/titanic_dataset.csv")
+dt
+Screenshot 2024-03-09 111446
 
+dt.info()
+Screenshot 2024-03-09 111848
+
+dt.shape
+Screenshot 2024-03-09 111927
+
+dt.set_index("PassengerId",inplace=True)
+dt.describe()
+Screenshot 2024-03-09 112037
+
+dt.nunique()
+Screenshot 2024-03-09 112112
+
+dt["Survived"].value_counts()
+Screenshot 2024-03-09 112211
+
+per=(dt["Survived"].value_counts()/dt.shape[0]*100).round(2)
+per
+Screenshot 2024-03-09 112247
+
+sns.countplot(data=dt,x="Survived")
+Screenshot 2024-03-09 112334
+
+dt
+Screenshot 2024-03-09 113810
+
+dt.Pclass.unique()
+Screenshot 2024-03-09 112614
+
+dt.rename(columns={'Sex':'Gender'},inplace=True)
+dt
+Screenshot 2024-03-09 112728
+
+sns.catplot(x="Gender",col="Survived",kind="count",data=dt,height=5,aspect=.7)
+Screenshot 2024-03-09 112816
+
+sns.catplot(x='Survived',hue="Gender",data=dt,kind='count')
+Screenshot 2024-03-09 112845
+
+dt.boxplot(column="Age",by="Survived")
+Screenshot 2024-03-09 112906
+
+sns.scatterplot(x=dt["Age"],y=dt["Fare"])
+Screenshot 2024-03-09 113012
+
+sns.jointplot(x="Age",y="Fare",data=dt)
+Screenshot 2024-03-09 113049
+
+fig,ax1=plt.subplots(figsize=(8,5))
+sns.boxplot(ax=ax1,x="Pclass",y="Age",hue="Gender",data=dt)
+Screenshot 2024-03-09 113142
+
+sns.catplot(data=dt,col="Survived",x="Gender",hue="Pclass",kind="count")
+Screenshot 2024-03-09 113229
+
+corr=dt.corr()
+sns.heatmap(corr,annot=True)
+Screenshot 2024-03-09 113316
+
+sns.pairplot(dt)
+Screenshot 2024-03-09 113415
 # RESULT
         <<INCLUDE YOUR RESULT HERE>>
